@@ -1,7 +1,27 @@
 <!DOCTYPE html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'> <title>For My Beautiful Wife &lt;3</title>
 <style>
 html,body{margin:0;height:100%;overflow:hidden;background:#000;font-family:Arial}
-canvas{position:fixed;inset:0}
+.heart-pop{
+    position:fixed;
+    font-size:40px;
+    pointer-events:none;
+    animation:heartFloat 1.8s ease-out forwards;
+    z-index:9999;
+}
+
+@keyframes heartFloat{
+    0%{
+        transform:translate(-50%,-50%) scale(.5);
+        opacity:0;
+    }
+    20%{
+        opacity:1;
+    }
+    100%{
+        transform:translate(-50%,-180%) scale(1.4);
+        opacity:0;
+    }
+}canvas{position:fixed;inset:0}
 #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
 #main{color:#fff;text-align:center;text-shadow:0 0 15px #fff;position:relative}
 #main h1{font-size:clamp(2rem,6vw,4rem)}#main p{font-size:clamp(1rem,3vw,1.3rem)}
@@ -17,5 +37,26 @@ setInterval(()=>boom(Math.random()*cv.width,50+Math.random()*cv.height*.5),700);
 const msgs=["❤️ I Love You ❤️","💖 My Beautiful Wife 💖","♾️ Forever ♾️","🥰 I Miss You 🥰"];
 const main=document.getElementById('main');
 setInterval(()=>{let d=document.createElement('div');d.className='float';d.textContent=msgs[Math.floor(Math.random()*msgs.length)];main.appendChild(d);setTimeout(()=>d.remove(),5000)},5000);
-const pets=["🐱","🐶","🐈","🐕","🐈‍⬛","🐕‍🦺"];setInterval(()=>{let e=document.createElement('div');e.className='pet';e.textContent=pets[Math.floor(Math.random()*pets.length)];e.style.bottom=(10+Math.random()*120)+'px';e.style.animationDuration=(6+Math.random()*4)+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),10000)},1800);
+const pets=["🐱","🐶","🐈","🐕","🐈‍⬛","🐕‍🦺"];pet.style.pointerEvents = "auto";
+pet.style.cursor = "pointer";
+
+pet.addEventListener("click", function(e){
+
+    const heart = document.createElement("div");
+    heart.className = "heart-pop";
+    heart.textContent = "❤️";
+
+    heart.style.left = e.clientX + "px";
+    heart.style.top = e.clientY + "px";
+
+    document.body.appendChild(heart);
+
+    // Little firework where you tapped
+    boom(e.clientX, e.clientY);
+
+    setTimeout(()=>{
+        heart.remove();
+    },1800);
+
+});setInterval(()=>{let e=document.createElement('div');e.className='pet';e.textContent=pets[Math.floor(Math.random()*pets.length)];e.style.bottom=(10+Math.random()*120)+'px';e.style.animationDuration=(6+Math.random()*4)+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),10000)},1800);
 </script></body></html>
