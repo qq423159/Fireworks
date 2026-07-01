@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 4th of July ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: radial-gradient(circle at bottom, #001133, #000000 70%);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+canvas {
+    position: absolute;
+    inset: 0;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    pointer-events: none;
+}
+
+.message {
+    color: white;
+    text-shadow: 0 0 15px white;
+    padding: 20px;
+}
+
+.message h1 {
+    font-size: clamp(2rem,7vw,4rem);
+    margin-bottom: 15px;
+}
+
+.message p {
+    font-size: clamp(1rem,4vw,1.5rem);
+    line-height: 1.6;
+}
+
+.small {
+    margin-top: 20px;
+    opacity: .8;
+    font-size: .9rem;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+
+<div class="overlay">
+    <div class="message">
+        <h1>🎆 Happy 4th of July ❤️</h1>
+
+        <p>
+            Even though we can't watch the fireworks together this year...
+        </p>
+
+        <br>
+
+        <p>
+            I wanted to bring a little fireworks show to you.
+        </p>
+
+        <br>
+
+        <p>
+            I love you more than words can say.
+        </p>
+
+        <p>
+            ❤️ Tony ❤️
+        </p>
+
+        <div class="small">
+            Tap anywhere for more fireworks!
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+const particles = [];
+
+function launchFirework(x,y){
+
+    const color = `hsl(${Math.random()*360},100%,60%)`;
+
+    for(let i=0;i<160;i++){
+
+        particles.push({
+            x,
+            y,
+            dx:Math.cos(Math.random()*Math.PI*2)*(Math.random()*7+2),
+            dy:Math.sin(Math.random()*Math.PI*2)*(Math.random()*7+2),
+            alpha:1,
+            radius:Math.random()*2+1,
+            color
+        });
+
+    }
+
+}
+
+function animate(){
+
+    ctx.fillStyle="rgba(0,0,0,.18)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    for(let i=particles.length-1;i>=0;i--){
+
+        const p=particles[i];
+
+        p.x+=p.dx;
+        p.y+=p.dy;
+
+        p.dy+=0.03;
+        p.dx*=0.99;
+        p.dy*=0.99;
+
+        p.alpha-=0.008;
+
+        ctx.globalAlpha=Math.max(p.alpha,0);
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+        ctx.fillStyle=p.color;
+        ctx.fill();
+
+        if(p.alpha<=0){
+            particles.splice(i,1);
+        }
+
+    }
+
+    ctx.globalAlpha=1;
+
+    requestAnimationFrame(animate);
+
+}
+
+animate();
+
+function randomLaunch(){
+
+    launchFirework(
+        Math.random()*canvas.width,
+        Math.random()*canvas.height*0.55+60
+    );
+
+}
+
+setInterval(randomLaunch,650);
+
+window.addEventListener("click",e=>{
+    launchFirework(e.clientX,e.clientY);
+});
+
+window.addEventListener("touchstart",e=>{
+    const t=e.touches[0];
+    launchFirework(t.clientX,t.clientY);
+});
+
+for(let i=0;i<4;i++){
+    setTimeout(randomLaunch,i*400);
+}
+
+</script>
+
+</body>
+</html>
