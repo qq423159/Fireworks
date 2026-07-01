@@ -11,7 +11,23 @@
     padding: 0;
     box-sizing: border-box;
 }
+.pet{
+    position:absolute;
+    font-size:42px;
+    user-select:none;
+    pointer-events:none;
+    z-index:5;
+    animation:run linear forwards;
+}
 
+@keyframes run{
+    from{
+        transform:translateX(-80px);
+    }
+    to{
+        transform:translateX(calc(100vw + 80px));
+    }
+}
 html, body {
     width: 100%;
     height: 100%;
@@ -190,7 +206,47 @@ window.addEventListener("touchstart",e=>{
 for(let i=0;i<4;i++){
     setTimeout(randomLaunch,i*400);
 }
+const animals = ["🐱","🐈","🐶","🐕","🐕‍🦺","🐈‍⬛"];
 
+function spawnPet(){
+
+    const pet = document.createElement("div");
+    pet.className = "pet";
+
+    pet.textContent =
+        animals[Math.floor(Math.random()*animals.length)];
+
+    pet.style.bottom =
+        (Math.random()*150 + 10) + "px";
+
+    pet.style.animationDuration =
+        (Math.random()*6 + 6) + "s";
+
+    // Occasionally run from right to left
+    if(Math.random() > 0.5){
+        pet.style.left = "100vw";
+        pet.style.transform = "scaleX(-1)";
+        pet.animate(
+            [
+                {transform:"translateX(80px) scaleX(-1)"},
+                {transform:"translateX(calc(-100vw - 160px)) scaleX(-1)"}
+            ],
+            {
+                duration:(Math.random()*6000+6000),
+                easing:"linear"
+            }
+        );
+    }
+
+    document.body.appendChild(pet);
+
+    setTimeout(()=>{
+        pet.remove();
+    },12000);
+}
+
+// New pet every couple seconds
+setInterval(spawnPet,1800);
 </script>
 
 </body>
