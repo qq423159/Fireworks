@@ -1,0 +1,21 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#000;font-family:Arial}
+canvas{position:fixed;inset:0}
+#wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+#main{color:#fff;text-align:center;text-shadow:0 0 15px #fff;position:relative}
+#main h1{font-size:clamp(2rem,6vw,4rem)}#main p{font-size:clamp(1rem,3vw,1.3rem)}
+.float{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(1.4rem,4vw,2.2rem);color:#ffb6d9;font-weight:bold;text-shadow:0 0 18px white;opacity:0;animation:float 5s ease-out forwards;white-space:nowrap}
+@keyframes float{0%{opacity:0;transform:translate(-50%,-50%) scale(.8)}15%{opacity:1}100%{opacity:0;transform:translate(-50%,-180%) scale(1.2)}}
+.pet{position:fixed;font-size:38px;bottom:10px;animation:run 8s linear forwards}@keyframes run{from{transform:translateX(-60px)}to{transform:translateX(calc(100vw + 60px))}}
+</style></head><body><canvas id=c></canvas><div id=wrap><div id=main><h1>🎆 Happy 4th of July ❤️</h1><p>Even though we can't watch the fireworks together this year...</p><p>I wanted to bring a little fireworks show to you.</p><p>I love you more than words can say.</p><p><b>❤️ Tony ❤️</b></p></div></div>
+<script>
+const cv=c,ctx=cv.getContext('2d');function rs(){cv.width=innerWidth;cv.height=innerHeight}onresize=rs;rs();let ps=[];
+function boom(x,y){let col=`hsl(${Math.random()*360},100%,60%)`;for(let i=0;i<120;i++)ps.push({x,y,vx:(Math.random()-.5)*8,vy:(Math.random()-.5)*8,a:1,c:col})}
+setInterval(()=>boom(Math.random()*cv.width,50+Math.random()*cv.height*.5),700);addEventListener('pointerdown',e=>boom(e.clientX,e.clientY));
+(function f(){ctx.fillStyle='rgba(0,0,20,.2)';ctx.fillRect(0,0,cv.width,cv.height);for(let i=ps.length-1;i>=0;i--){let p=ps[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.03;p.vx*=.99;p.vy*=.99;p.a-=.01;ctx.globalAlpha=p.a;ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,2,0,6.3);ctx.fill();if(p.a<=0)ps.splice(i,1)}ctx.globalAlpha=1;if(Math.random()<.02){let x=Math.random()*cv.width,y=Math.random()*180;ctx.strokeStyle='white';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-50,y-15);ctx.stroke()}requestAnimationFrame(f)})();
+const msgs=["❤️ I Love You ❤️","💖 My Beautiful Wife 💖","♾️ Forever ♾️","🥰 I Miss You 🥰"];
+const main=document.getElementById('main');
+setInterval(()=>{let d=document.createElement('div');d.className='float';d.textContent=msgs[Math.floor(Math.random()*msgs.length)];main.appendChild(d);setTimeout(()=>d.remove(),5000)},5000);
+const pets=["🐱","🐶","🐈","🐕","🐈‍⬛","🐕‍🦺"];setInterval(()=>{let e=document.createElement('div');e.className='pet';e.textContent=pets[Math.floor(Math.random()*pets.length)];e.style.bottom=(10+Math.random()*120)+'px';e.style.animationDuration=(6+Math.random()*4)+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),10000)},1800);
+</script></body></html>
