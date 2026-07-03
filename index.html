@@ -40,7 +40,18 @@ const cv=c,ctx=cv.getContext('2d');function rs(){cv.width=innerWidth;cv.height=i
 function boom(x,y){let col=`hsl(${Math.random()*360},100%,60%)`;for(let i=0;i<120;i++)ps.push({x,y,vx:(Math.random()-.5)*8,vy:(Math.random()-.5)*8,a:1,c:col})}
 setInterval(()=>boom(Math.random()*cv.width,50+Math.random()*cv.height*.5),700);addEventListener('pointerdown',e=>boom(e.clientX,e.clientY));
 (function f(){ctx.fillStyle='rgba(0,0,20,.2)';ctx.fillRect(0,0,cv.width,cv.height);for(let i=ps.length-1;i>=0;i--){let p=ps[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.03;p.vx*=.99;p.vy*=.99;p.a-=.01;ctx.globalAlpha=p.a;ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.s||2,0,Math.PI*2);ctx.fill();if(p.a<=0)ps.splice(i,1)}ctx.globalAlpha=1;if(Math.random()<.02){let x=Math.random()*cv.width,y=Math.random()*180;ctx.strokeStyle='white';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-50,y-15);ctx.stroke()}requestAnimationFrame(f)})();
-const msgs=["❤️ I Love You ❤️","💖 My Beautiful Wife 💖","♾️ Forever ♾️","🥰 I Miss You 🥰"];
+const msgs=[
+"❤️ I Love You ❤️",
+"💖 My Beautiful Wife 💖",
+"🥰 I Miss You 🥰",
+"♾️ Forever ♾️",
+"💘 You Mean Everything To Me 💘",
+"💕 You're My Favorite Person 💕",
+"🌎 My Whole World 🌎",
+"😘 Can't Wait To Hold You Again 😘",
+"💝 Happy 4th Beautiful 💝",
+"❤️ Always & Forever ❤️"
+];
 const main=document.getElementById('main');
 setInterval(()=>{let d=document.createElement('div');d.className='float';d.textContent=msgs[Math.floor(Math.random()*msgs.length)];main.appendChild(d);setTimeout(()=>d.remove(),5000)},5000);
 const pets=["🐱","🐶","🐈","🐕","🐈‍⬛","🐕‍🦺"];setInterval(()=>{let e=document.createElement('div');e.className='pet';e.style.pointerEvents = "auto";e.style.cursor = "pointer";e.textContent=pets[Math.floor(Math.random()*pets.length)];e.style.bottom=(10+Math.random()*120)+'px';e.style.animationDuration=(6+Math.random()*4)+'s';e.onclick = function(event){
