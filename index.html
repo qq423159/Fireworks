@@ -209,23 +209,24 @@ const pets=["🐱","🐶","🐈","🐕","🐈‍⬛","🐕‍🦺"];setInterval(
 };
 
 document.body.appendChild(e);setTimeout(()=>e.remove(),10000)},1800);
-setInterval(()=>{
+setInterval(() => {
 
-    for(let i=0;i<25;i++){
+    // Number of fireworks
+    const total = 120;
 
-        setTimeout(()=>{
+    for (let i = 0; i < total; i++) {
 
-            firework(
+        setTimeout(() => {
 
-                Math.random()*innerWidth,
-
-                Math.random()*innerHeight*.5+40
-
+            boom(
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerHeight * 0.75,
+                true // Force rainbow
             );
 
-        },i*120);
+        }, i * 40);
 
     }
 
-},30000);
+}, 30000);
 </script></body></html>
