@@ -157,14 +157,16 @@ setInterval(()=>{
     d.textContent = msgs[Math.floor(Math.random()*msgs.length)];
 
     // Random position around the center
-    const angle = Math.random() * Math.PI * 2;
-    const radius = 250 + Math.random() * 120;
+    const isPhone = window.innerWidth < 600;
 
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius;
+const radius = isPhone
+    ? 130 + Math.random() * 50
+    : 220 + Math.random() * 120;
 
-    d.style.left = `calc(50% + ${x}px)`;
-    d.style.top = `calc(50% + ${y}px)`;
+const angle = Math.random() * Math.PI * 2;
+
+d.style.left = `calc(50% + ${Math.cos(angle) * radius}px)`;
+d.style.top = `calc(50% + ${Math.sin(angle) * radius}px)`;
 
     document.body.appendChild(d);
 
