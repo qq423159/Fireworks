@@ -73,9 +73,10 @@ function boom(x,y){
         "#ffffff",
         "#ff8800"
     ];
-
+const rainbow = Math.random() < 0.4;
     const type=Math.floor(Math.random()*5);
-
+const singleColor =
+    colors[Math.floor(Math.random() * colors.length)];
     for(let i=0;i<220;i++){
 
         let angle=Math.random()*Math.PI*2;
@@ -120,15 +121,23 @@ function boom(x,y){
 
         }
 
-        ps.push({
-            x,
-            y,
-            vx,
-            vy,
-            a:1,
-            c:colors[Math.floor(Math.random()*colors.length)],
-            s:Math.random()*3+2
-        });
+       ps.push({
+
+    x,
+    y,
+
+    vx,
+    vy,
+
+    a:1,
+
+c: rainbow
+    ? `hsl(${i * 360 / 220},100%,60%)`
+    : singleColor,
+
+    s:Math.random()*3+2
+
+});
 
     }
 
