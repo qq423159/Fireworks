@@ -6,8 +6,34 @@ canvas{position:fixed;inset:0}
 #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
 #main{color:#fff;text-align:center;text-shadow:0 0 15px #fff;position:relative}
 #main h1{font-size:clamp(2rem,6vw,4rem)}#main p{font-size:clamp(1rem,3vw,1.3rem)}
-.float{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(1.4rem,4vw,2.2rem);color:#ffb6d9;font-weight:bold;text-shadow:0 0 18px white;opacity:0;animation:float 5s ease-out forwards;white-space:nowrap}
-@keyframes float{0%{opacity:0;transform:translate(-50%,-50%) scale(.8)}15%{opacity:1}100%{opacity:0;transform:translate(-50%,-180%) scale(1.2)}}
+.float{
+    position:fixed;
+    font-size:clamp(1.4rem,4vw,2.2rem);
+    color:#ffb6d9;
+    font-weight:bold;
+    text-shadow:0 0 18px white;
+    pointer-events:none;
+    white-space:nowrap;
+    animation:floatAround 4s ease-out forwards;
+}
+
+@keyframes floatAround{
+
+    0%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.7);
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+        transform:translate(-50%,-120px) scale(1.2);
+    }
+
+}
 .pet{position:fixed;font-size:38px;bottom:10px;animation:run 8s linear forwards}@keyframes run{from{transform:translateX(-60px)}to{transform:translateX(calc(100vw + 60px))}}
 .heart{
     position:fixed;
