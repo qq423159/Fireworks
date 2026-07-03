@@ -148,22 +148,29 @@ const msgs=[
 "❤️ Always & Forever ❤️"
 ];
 const main=document.getElementById('main');
-setInterval(()=>{let d = document.createElement("div");
+setInterval(()=>{
 
-d.className = "float";
+    let d = document.createElement("div");
 
-d.textContent = msgs[Math.floor(Math.random()*msgs.length)];
+    d.className = "float";
 
-// Random position around the center
-const offsetX = (Math.random() - 0.5) * 450;
-const offsetY = (Math.random() - 0.5) * 300;
+    d.textContent = msgs[Math.floor(Math.random()*msgs.length)];
 
-d.style.left = `calc(50% + ${offsetX}px)`;
-d.style.top = `calc(50% + ${offsetY}px)`;
+    // Random position around the center
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 250 + Math.random() * 120;
 
-document.body.appendChild(d);
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
 
-setTimeout(() => d.remove(), 5000);
+    d.style.left = `calc(50% + ${x}px)`;
+    d.style.top = `calc(50% + ${y}px)`;
+
+    document.body.appendChild(d);
+
+    setTimeout(() => d.remove(), 5000);
+
+},5000);
 const pets=["🐱","🐶","🐈","🐕","🐈‍⬛","🐕‍🦺"];setInterval(()=>{let e=document.createElement('div');e.className='pet';e.style.pointerEvents = "auto";e.style.cursor = "pointer";e.textContent=pets[Math.floor(Math.random()*pets.length)];e.style.bottom=(10+Math.random()*120)+'px';e.style.animationDuration=(6+Math.random()*4)+'s';e.onclick = function(event){
 
     event.stopPropagation();
